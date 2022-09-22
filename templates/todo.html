@@ -1,5 +1,25 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <h1>Todo Lists</h1>
+<br>
+
+<div class="container">
+    <div class="row align-items-start">
+        <div class="col">
+            <form action="">
+                <label for="title">Todo title</label>
+                <input type="text" name="title" id=""/>
+                <br />
+                <div>
+                    <label for="description">Description</label>
+                    <br />
+                    <textarea name="description" id="" cols="30" rows="10"></textarea>
+                    <br />
+                </div>
+                <button type="submit">Submit Entry</button>
+            </form>
+        </div>
+        <div class="col">One of three columns</div>
+    </div>
+</div>
+
 {% endblock content %}
