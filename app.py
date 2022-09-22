@@ -17,7 +17,7 @@ def hello():
 def todo():
     todo_list = Todo.query.all()
     print(todo_list)
-    return render_template("todo.html")
+    return render_template("todo.html", todos=todo_list)
 
 
 class Todo(db.Model):
@@ -29,7 +29,7 @@ class Todo(db.Model):
 
 if __name__ == "__main__":
     # db.create_all()
-    # new_todo = Todo(title="Todo 2", description="hello world", complete=True)
+    # new_todo = Todo(title="Todo 4", description="hello world", complete=False)
     # db.session.add(new_todo)
     # db.session.commit()
     app.run(debug=True)
