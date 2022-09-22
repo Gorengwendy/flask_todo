@@ -5,16 +5,18 @@
 <div class="container">
     <div class="row align-items-start">
         <div class="col">
-            <form action="">
+
+            <form action="{{ url_for('add') }}" method="post">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="title">
+                    <input type="text" name="title" class="form-control"
+                        id="title">
                 </div>
                 <div class="mb-3">
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a
+                        <textarea class="form-control" name="description"
+                            placeholder="Leave a
                             comment here" id="floatingTextarea"></textarea>
-                        <label for="floatingTextarea">Description</label>
                     </div>
                 </div>
                 <input class="btn btn-primary" type="submit" value="Submit">
@@ -29,10 +31,12 @@
                         <div class="fw-bold">{{ todo.title }}</div>
                         {{ todo.description }}
                     </div>
-                    {% if todo.complete == False %}
-                    <a href="" class="btn btn-success" role="button">Update</a>
-                    {% endif %}
-                    <a href="" class="btn btn-danger" role="button">Delete</a>
+                    <a href="{{ url_for('update', todo_id=todo.id)}}"
+                        class="btn btn-success"
+                        role="button">Update</a>
+                    <a href="{{ url_for('update', todo_id=todo.id)}}" class="btn
+                        btn-danger"
+                        role="button">Delete</a>
                     {% if todo.complete == False %}
                     <span class="badge bg-primary rounded-pill">Not done</span>
                     {% else %}
