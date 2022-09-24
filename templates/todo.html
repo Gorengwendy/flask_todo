@@ -34,7 +34,7 @@
                     <a href="{{ url_for('update', todo_id=todo.id)}}"
                         class="btn btn-success"
                         role="button">Update</a>
-                    <a href="{{ url_for('update', todo_id=todo.id)}}" class="btn
+                    <a href="{{ url_for('delete', todo_id=todo.id)}}" class="btn
                         btn-danger"
                         role="button">Delete</a>
                     {% if todo.complete == False %}
