@@ -8,6 +8,13 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 
+class Todo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(40))
+    description = db.Column(db.String(100))
+    complete = db.Column(db.Boolean, default=False)
+
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -18,13 +25,6 @@ def todo():
     todo_list = Todo.query.all()
     print(todo_list)
     return render_template("todo.html", todos=todo_list)
-
-
-class Todo(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(40))
-    description = db.Column(db.String(100))
-    complete = db.Column(db.Boolean, default=False)
 
 
 @app.route('/add', methods=['POST'])
@@ -39,16 +39,16 @@ def add():
 
 @app.route('/update/<int:todo_id>')
 def update(todo_id):
-    todo = Todo.query.filter_by(id=todo_id).first()
-    todo.complete = not todo.complete
+    updated_todo = Todo.query.filter_by(id=todo_id).first()
+    updated_todo.complete = not updated_todo.complete
     db.session.commit()
     return redirect(url_for("todo"))
 
 
 @app.route('/delete/<int:todo_id>')
 def delete(todo_id):
-    todo = Todo.query.filter_by(id=todo_id).first()
-    db.session.delete(todo)
+    deleted_todo = Todo.query.filter_by(id=todo_id).first()
+    db.session.delete(deleted_todo)
     db.session.commit()
     return redirect(url_for("todo"))
 
