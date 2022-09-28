@@ -17,7 +17,8 @@ class Todo(db.Model):
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    todo_list = Todo.query.filter_by(complete=False).all()
+    return render_template("index.html", todos=todo_list)
 
 
 @app.route("/todo")
@@ -27,7 +28,7 @@ def todo():
     return render_template("todo.html", todos=todo_list)
 
 
-@app.route('/add', methods=['POST'])
+@app.route("/add", methods=["POST"])
 def add():
     title = request.form.get("title")
     description = request.form.get("description")
@@ -37,7 +38,7 @@ def add():
     return redirect(url_for("todo"))
 
 
-@app.route('/update/<int:todo_id>')
+@app.route("/update/<int:todo_id>")
 def update(todo_id):
     updated_todo = Todo.query.filter_by(id=todo_id).first()
     updated_todo.complete = not updated_todo.complete
@@ -45,7 +46,7 @@ def update(todo_id):
     return redirect(url_for("todo"))
 
 
-@app.route('/delete/<int:todo_id>')
+@app.route("/delete/<int:todo_id>")
 def delete(todo_id):
     deleted_todo = Todo.query.filter_by(id=todo_id).first()
     db.session.delete(deleted_todo)
